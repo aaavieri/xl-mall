@@ -1,0 +1,30 @@
+<view class="container">
+  <!-- <view class="search">
+    <navigator url="/pages/search/search" class="input">
+      <image class="icon"></image>
+      <text class="txt">商品搜索, 共{{goodsCount}}款好物</text>
+    </navigator>
+  </view> -->
+  <view class="catalog">
+    <scroll-view class="nav" scroll-y="true">
+        <view class="item {{ selectType.typeId == item.typeId ? 'active' : ''}}" wx:for="{{typeList}}" wx:key="{{item.typeId}}" data-item="{{item}}" data-index="{{index}}" bindtap="switchType">{{item.typeName}}</view>
+    </scroll-view>
+    <scroll-view class="cate" scroll-y="true">
+        <!-- <navigator url="url" class="banner">
+            <image class="image" src="{{currentCategory.wap_banner_url}}"></image>
+            <view class="txt">{{selectType.typeName}}</view>
+        </navigator> -->
+        <view class="hd">
+            <text class="line"></text>
+            <text class="txt">{{selectType.typeName}}分类</text>
+            <text class="line"></text>
+        </view>
+        <view class="bd">
+            <navigator url="/pages/goods/goods?id={{item.id}}" class="item {{(index+1) % 3 == 0 ? 'last' : ''}}" wx:for="{{goodsList}}" wx:key="{{item.id}}">
+                <image class="icon" src="{{item.url}}"></image>
+                <text class="txt">{{item.name}}</text>
+            </navigator>
+        </view>
+    </scroll-view>
+  </view>
+</view>
