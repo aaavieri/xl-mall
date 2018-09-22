@@ -1,5 +1,6 @@
 var util = require('../../../utils/util.js');
 var api = require('../../../config/api.js');
+var Promise = require('../../../lib/es6-promise.min.js');
 
 Page({
   data:{

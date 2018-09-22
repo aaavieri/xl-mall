@@ -1,6 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp()
+var Promise = require('../../lib/es6-promise.min.js');
 
 Page({
   data: {

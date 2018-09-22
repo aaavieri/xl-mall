@@ -1,6 +1,7 @@
 var util = require('../../../utils/util.js');
 var api = require('../../../config/api.js');
 const pay = require('../../../services/pay.js');
+var Promise = require('../../../lib/es6-promise.min.js');
 
 var app = getApp();
 

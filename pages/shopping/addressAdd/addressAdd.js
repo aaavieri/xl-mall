@@ -1,5 +1,6 @@
 var util = require('../../../utils/util.js');
 var api = require('../../../config/api.js');
+var Promise = require('../../../lib/es6-promise.min.js');
 var app = getApp();
 var numberReg = new RegExp('[1-9][0-9]*');
 Page({

@@ -1,3 +1,5 @@
+var Promise = require('../../../lib/es6-promise.min.js');
+
 // pages/auth/reset/reset.js
 Page({
 

@@ -4,6 +4,7 @@
 
 const util = require('../utils/util.js');
 const api = require('../config/api.js');
+var Promise = require('../lib/es6-promise.min.js');
 
 /**
  * 判断用户是否登录

@@ -1,4 +1,5 @@
 var api = require('../config/api.js');
+var Promise = require('../lib/es6-promise.min.js');
 
 function formatTime(date) {
   var year = date.getFullYear()
