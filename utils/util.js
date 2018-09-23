@@ -74,9 +74,14 @@ function request(url, data = {}, method = "GET") {
             }).then(res => {
                 if (res.data.success === true) {
                   //存储用户信息
-                  wx.setStorageSync('userInfo', res.data.userInfo)
+                  if (res.data.userInfo) {
+                    wx.setStorageSync('userInfo', res.data.userInfo)
+                  }
                   if (res.header['set-cookie']) {
                     wx.setStorageSync('token', res.header['set-cookie'].split(';')[0])
+                    return request(url, data, method)
+                  } else if (res.header['Set-Cookie']) {
+                    wx.setStorageSync('token', res.header['Set-Cookie'].split(';')[0])
                     return request(url, data, method)
                   } else {
                     reject(res)
