@@ -16,7 +16,11 @@ Page({
     selectType: {}
   },
   onLoad: function (options) {
-    this.getAllGoods();
+    if (!wx.getStorageSync('token')) {
+      util.login().then(this.getAllGoods)
+    } else {
+      this.getAllGoods();
+    }
   },
   getAllGoods: function() {
     var that = this

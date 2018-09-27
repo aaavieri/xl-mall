@@ -1,11 +1,14 @@
 var util = require('./utils/util.js');
 var api = require('./config/api.js');
+var Promise = require('./lib/es6-promise.min.js');
+
 //app.js
 App({
   onLaunch: function () {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
+    wx.removeStorageSync('token')
     wx.setStorageSync('logs', logs)
 
     // 登录

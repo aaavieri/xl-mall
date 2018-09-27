@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/catalog/catalog",
     "pages/ucenter/address/address",
     "pages/ucenter/addressAdd/addressAdd",
@@ -22,9 +22,10 @@
     "pages/shopping/addressAdd/addressAdd",
     "pages/category/category",
     "pages/cart/cart",
-    "pages/goods/goods"
+    "pages/goods/goods",
+    "pages/welcome/welcome"
   ],
-  "window":{
+  "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "小鲤基因科技",

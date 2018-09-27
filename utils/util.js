@@ -45,64 +45,11 @@ function request(url, data = {}, method = "GET") {
       },
       success: function (res) {
         console.log("success");
-
         if (res.statusCode == 200) {
-
-          if (res.data.loginError == true) {
-            //需要登录后才可以操作
-
-            let code = null;
-            return login().then((res) => {
-              code = res.code;
-              return {};
-            }).then((userInfo) => {
-              //登录远程服务器
-              return new Promise((onCompleted, onRejected) => {
-                wx.request({
-                  url: api.AuthLoginByWeixin,
-                  data: { code: code, userInfo: userInfo },
-                  method: 'POST',
-                  success: (res) => {
-                    onCompleted(res)
-                  },
-                  fail: (err) => {
-                    console.log("login failed")
-                    onRejected(err)
-                  }
-                })
-              })
-            }).then(res => {
-                if (res.data.success === true) {
-                  //存储用户信息
-                  if (res.data.userInfo) {
-                    wx.setStorageSync('userInfo', res.data.userInfo)
-                  }
-                  if (res.header['set-cookie']) {
-                    wx.setStorageSync('token', res.header['set-cookie'].split(';')[0])
-                    return request(url, data, method)
-                  } else if (res.header['Set-Cookie']) {
-                    wx.setStorageSync('token', res.header['Set-Cookie'].split(';')[0])
-                    return request(url, data, method)
-                  } else {
-                    reject(res)
-                  }
-                  // request(url, data, method)
-                  // resolve(res);
-                } else {
-                  reject(res);
-                }
-            }).then((res) => {
-              resolve(res)
-            }).catch((err) => {
-              reject(err);
-            })
-          } else {
-            resolve(res.data);
-          }
+          resolve(res.data);
         } else {
           reject(res.errMsg);
         }
-
       },
       fail: function (err) {
         reject(err)
@@ -138,7 +85,7 @@ function login() {
         if (res.code) {
           //登录远程服务器
           console.log(res)
-          resolve(res);
+          resolve(res.code);
         } else {
           reject(res);
         }
@@ -147,8 +94,56 @@ function login() {
         reject(err);
       }
     });
-  });
+  }).then(code => {
+    return new Promise((onCompleted, onRejected) => {
+      wx.request({
+        url: api.AuthLoginByWeixin,
+        data: { code: code, userInfo: {} },
+        method: 'POST',
+        success: (res) => {
+          onCompleted(res)
+        },
+        fail: (err) => {
+          console.log("login failed")
+          onRejected(err)
+        }
+      })
+    })
+  }).then(res => {
+    //存储用户信息
+    if (res.data.userInfo) {
+      wx.setStorageSync('userInfo', res.data.userInfo)
+    }
+    if (res.header['set-cookie']) {
+      wx.setStorageSync('token', res.header['set-cookie'].split(';')[0])
+    } else if (res.header['Set-Cookie']) {
+      wx.setStorageSync('token', res.header['Set-Cookie'].split(';')[0])
+    } else {
+      reject(res)
+    }
+  }).catch(err => {
+    util.showErrorToast('登录失败')
+  })
 }
+
+// function login() {
+//   return new Promise(function (resolve, reject) {
+//     wx.login({
+//       success: function (res) {
+//         if (res.code) {
+//           //登录远程服务器
+//           console.log(res)
+//           resolve(res);
+//         } else {
+//           reject(res);
+//         }
+//       },
+//       fail: function (err) {
+//         reject(err);
+//       }
+//     });
+//   });
+// }
 
 function getUserInfo() {
   return new Promise(function (resolve, reject) {

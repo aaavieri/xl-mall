@@ -1,0 +1,12 @@
+<view class='container'>
+  <view class="profile-info">
+    <open-data type="userAvatarUrl" class="avatar"></open-data>
+    <view class="info">
+      <view class='name'>
+        <view>欢迎光临</view>
+        <open-data type="userNickName"></open-data>
+      </view>
+    </view>
+  </view>
+  <button class="fb-btn">{{btnText}}</button>
+</view>
